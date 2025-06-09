@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mobile Money Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>📊 Mobile Money Transaction Dashboard</h1>
+    </header>
+
+    <form method="get" class="filters">
+        <input type="text" name="type" placeholder="Category" value="{{ request.args.get('type', '') }}">
+        <input type="date" name="date" value="{{ request.args.get('date', '') }}">
+        <input type="month" name="month_year" value="{{ request.args.get('month_year', '') }}">
+        <input type="number" name="year" placeholder="Year" min="2000" max="2100" value="{{ request.args.get('year', '') }}">
+        <input type="number" name="min_amount" placeholder="Min Amount" value="{{ request.args.get('min_amount', '') }}">
+        <input type="number" name="max_amount" placeholder="Max Amount" value="{{ request.args.get('max_amount', '') }}">
+        <button type="submit">🔍 Filter</button>
+    </form>
+
+    {% if messages %}
+        <div class="summary">{{ total_messages }} message{{ 's' if total_messages != 1 else '' }} retrieved successfully!</div>
+    {% else %}
+        <div class="summary">No messages found with the selected filters.</div>
+    {% endif %}
+
+    <div class="dashboard">
+        <div class="charts">
+            <div class="chart-container">
+                {{ pie_chart | safe }}
+            </div>
+            <div class="chart-container">
+                {{ bar_chart | safe }}
+            </div>
+        </div>
+        <div class="messages">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Balance</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for msg in messages %}
+                    <tr>
+                        <td>{{ msg[1] }}</td>
+                        <td>{{ msg[-1] }}</td>
+                        <td>{{ msg[5] }}</td>
+                        <td>{{ msg[6] }}</td>
+                        <td>{{ msg[4] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if total_pages > 1 %}
+            <div class="pagination">
+                {% if current_page > 1 %}
+                <a href="{{ url_for('index') }}?{% for k, v in request.args.items() if k != 'page' %}{{ k }}={{ v }}&{% endfor %}page={{ current_page - 1 }}">⬅ Previous</a>
+                {% endif %}
+                <span>Page {{ current_page }} of {{ total_pages }}</span>
+                {% if current_page < total_pages %}
+                <a href="{{ url_for('index') }}?{% for k, v in request.args.items() if k != 'page' %}{{ k }}={{ v }}&{% endfor %}page={{ current_page + 1 }}">Next ➡</a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+</html>
