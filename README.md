@@ -36,7 +36,7 @@ This project is an end-to-end fullstack application designed to analyze and visu
 - **Visualization**: python(plotly)
 
 ## 🗃️ Project Structure
-
+```
 ├── Data
     ├── modifies_sms_v2.xml
 ├── static
@@ -50,7 +50,7 @@ This project is an end-to-end fullstack application designed to analyze and visu
 ├── app.py
 ├── requirements.txt
 ├── transactions.db
-
+```
 ## 🚀 Setup Instructions
 
 1. **Clone the Repository**
