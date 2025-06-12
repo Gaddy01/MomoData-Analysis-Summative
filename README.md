@@ -95,3 +95,4 @@ This project is an end-to-end fullstack application designed to analyze and visu
 ## 📝 Authors
 
    Gaddiel Irakoze
+   Joshua Mugisha
