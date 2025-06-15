@@ -97,3 +97,7 @@ This project is an end-to-end fullstack application designed to analyze and visu
    Gaddiel Irakoze
    
    Joshua Mugisha
+
+   Ahmed Mohamed Suliman Khalid
+
+   Jolly Gift Burabyo
